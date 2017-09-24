@@ -1,0 +1,80 @@
+html,body{
+	margin: 0;
+	padding: 0;
+	background-color: Black;
+	color: darkSlateGray;
+}
+.title-box{
+	font-size: 10px;
+	font: 1.8em 'Open Sans', sans-serif;
+	color: Black;
+	text-align: left;
+	padding: 20px;  //provides spacing between lines so that they aren't too crammed
+	margin: 10px auto;  //moves the whole element 30px away from any other element
+}
+.subtitle{
+	font-size: 10px;
+	font: 1.4em 'Open Sans', sans-serif;
+	text-align: left;
+	padding: 20px;
+
+}
+.footer{
+	font-size: 15px;
+	font: 1.0em 'Open Sans', sans-serif;
+	font-color: Black;
+	text-align: center;
+	vertical-align: bottom;
+	border:400px;
+	margin:400px;
+	padding: 30px;
+  	display: block;
+  	background-color: Gainsboro;
+}
+.container {
+	font-size: 12px;
+	font: 1.2em 'Open Sans', sans-serif;
+	text-align: center;
+	padding:30px;
+}
+.tile {
+	font-size: 12px;
+	font: 1.4em 'Open Sans', sans-serif;
+	color: White;
+	text-align: center;
+	padding: 20px;
+  	display: block;
+  	background-color: DarkRed;
+}
+.floating-box {
+	border-radius: 25px;
+	vertical-align: top;
+	font-size: 15px;
+	font: 1.4em 'Open Sans', sans-serif;
+	position: top-left;
+    float: left;
+    width: 300px;
+    height: 200px;
+    border: 30px;
+    margin: 10px;
+    padding: 20px;
+}
+
+
+div{
+	background-color: Gainsboro;
+}
+a{
+	text-decoration: none;
+	font-color: White;
+}
+href{
+	font-color: White;
+}
+
+
+#the-result{
+	font: 1.2em 'Open Sans', sans-serif;
+	font-size:64px;
+	text-align: center;
+}

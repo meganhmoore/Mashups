@@ -1,0 +1,79 @@
+html, body{
+	/**font-family: 'Montserrat', sans-serif;**/
+	font-family: 'Raleway', sans-serif;
+	margin: 0;
+	padding: 0;
+	max-width: 1280px;
+}
+h1{
+	text-align: center;
+}
+.nav-container{
+	width:70%;
+	margin: 10px auto; /**automatically centered**/
+	text-align: center;
+}
+.nav-button:hover{
+	width: 30%;
+	height: 25px;
+	margin: 5px;
+}
+.nav-button{
+	width: 25%;
+	height: 25px;
+	margin: 5px;
+	background-color:rgb(200,170,240);
+}
+
+#nav2{
+	background-color: rgb(220, 120, 120);
+}
+.button_data{
+	position: relative;
+	font-size: 64px;
+	text-align: center;
+	margin-top; 20px;
+}
+.nav-button3{
+	background-color: rgb(250,170,140)
+}
+.main-container{
+	position: relative; /**gives it its own coordinate system so that children move according to the parent**/
+	width: 80%;
+	margin: 10px auto;
+	/**background: rgb(220,230,240);**/
+}
+.main-left{
+	width: 45%;
+	position: absolute;
+	left: 0;
+	margin: 10px;
+	padding: 5px;
+}
+.main-right{
+	width: 45%;
+	position: absolute;
+	right: 0;
+	margin: 10px;
+	padding: 5px;
+}
+@media (max-width: 840px){/**conditionals so that the page is responsive when small**/
+
+	.main-left{
+		position: relative;
+		width: 80%;
+		margin: 10px auto;
+
+	}
+	.main-right{
+		position: relative;
+		width: 80%;
+		margin: 10px auto;
+
+	}
+	.nav-button{
+		width:90%;
+		margin-bottom: 20px;
+	}
+
+}
