@@ -12,6 +12,7 @@ function getLyrics(artist, song){
     error: function(err){
       console.log("Problem");
       console.log(err);
+      $("#results").append("There was an error, please try a new artist and song");
     },
     success: function(data){
       console.log("noice");

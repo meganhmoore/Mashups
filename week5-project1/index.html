@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<!-- <meta name="viewport" content="width=device-width"> -->
+		<title>Lyric Generator</title>
+		<link rel="stylesheet" type="text/css" href="style.css" />
+	</head>
+	<body>
+    <div class="neutral">
+			<a href="about.html">About This Project</a>
+  		<h1>Lyric Generator</h1>
+  		<h2>Find the lyrics and sentiment analysis of your favorite songs just by entering the Artist and the Song Title</h2>
+
+      <input class="left" id="theArtistInput" placeholder="Artist"></input>
+      <input class="right" id="theSongInput" placeholder="Song"></input>
+
+      <button id="theButton">Search</button>
+    </div>
+    <!--<a href="#results">afdasdfad</a>-->
+    <div id="results"></div>
+    <div class="answer" id="answer"></div>
+    <div class ="negative" id="negative"></div>
+    <div class="positive" id="positive"></div>
+
+    <!--<div class="header">-->
+    <a href="https://market.mashape.com/twinword/sentiment-analysis">Sentiment Analysis API</a>
+    <a href="http://docs.lyricsovh.apiary.io/#reference/0/lyrics-of-a-song" class="right">Lyric API</a>
+    <!--</div>-->
+
+
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+		<script type="text/javascript" src="scripts2.js"></script>
+	</body>
+</html>

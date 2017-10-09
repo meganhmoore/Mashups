@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<!-- <meta name="viewport" content="width=device-width"> -->
+		<title>Lyric Generator</title>
+		<link rel="stylesheet" type="text/css" href="style.css" />
+	</head>
+	<body>
+    <div class="about">
+  		<h1>About</h1>
+      <h2>Concept</h2>
+      <h3>This project focused on taking two different APIs and querying data from them to display it in a new way.
+      I chose to use a lyric querying API, and a sentiment analysis API. In order to query the lyric
+      generator I had to provide an artist and a song title to query from. In order to handle errors if both
+      the artist and the song were not provided I had an error message, and I also had an error message if the
+      API was unsuccessful in querying the data. Once the data was successfully queried from the lyric API I
+      fed that data into the sentiment analysis API. The best API that I could find that was free and worked
+      without backend support was from Mashape. This API allowed me to determine if the song had a sentiment that
+      was overall negative, positive or neutral. By determining the sentiment, I then chose between a floral(happy) picture
+      or a dripping rain(sad) picture as the background to display the data. The data that I chose to display
+      consisted of the lyrics from the chosen artist and song, and the sentiment with its number.
+      </h3>
+  		<h2>APIs</h2>
+      <h3>The initial data came from the apiary API's lyric reference, then I fed that data through the mashape
+      sentiment analysis API to deduce the sentiment. The data I got from this API was a number between -1 and 1. If the number
+      was greater than 0 it was a positive sentiment, if the number was less than 0 it was negative, and if the sentiment was
+      equal to 0 it had a neutral sentiment.
+      </h3>
+      <h2>Difficulties</h2>
+      <h3>
+        <p>There were a few things that I had difficulties with, the first being the fact that many of the APIs that
+        I wanted to use required backend support rather than having direct calls to their server every time. Because
+        of this I spent a lot of time reading documentation of APIs, trying them out and then eventually not being
+        able to get them to work. Eventually I used the mashape API which allowed me to access the data, with the
+        addition of headers to authenticate my API access. The Lyric API was pretty straightforward once I found
+        the right one.
+        </p>
+        <p>
+          In accessing and displaying the data I ran into a few other problems. For one I had trouble formatting the lyrics
+          correctly so that they were easily readable. I eventually found a line on stackoverflow that would replace
+          carriage returns with linebreaks so that when added to the div, the lines would split in the right places
+          The final problem that I had was making sure that the data was cleared everytime someone wanted to search for
+          a new song and artist. I also found a line on stackoverflow that solved this problem.  
+        </p>
+      </h3>
+    </div>
+    <!--<div class="header">-->
+    <a href="https://market.mashape.com/twinword/sentiment-analysis">Sentiment Analysis API</a>
+    <a href="http://docs.lyricsovh.apiary.io/#reference/0/lyrics-of-a-song" class="right">Lyric API</a>
+    <!--</div>-->
+
+
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+		<script type="text/javascript" src="scripts2.js"></script>
+	</body>
+</html>
