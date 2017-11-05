@@ -1,0 +1,33 @@
+body{
+	margin: 0;
+	padding: 0;
+	background-color: white;
+	font-family: 'Helvetica', Geneva, Verdana, Arial, sans-serif;
+	font-size: 16px;
+}
+
+canvas{
+	position: static;
+	z-index: -1;
+}
+
+.msg{
+	position: absolute;
+	width: 80%;
+	font-size: 24px;
+	color: white;
+	text-align: center;
+	margin: 50px 10% 0;
+}
+.big{
+	font-size: 64px;
+}
+
+.name{
+	position: absolute;
+	top: 40%;
+	font-size: 48px;
+	color: white;
+	text-align: center;
+	width: 100%;
+}

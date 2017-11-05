@@ -1,0 +1,19 @@
+#mySVG{
+	background-color: aqua;
+}
+svg .bigCircle{
+	fill: yellow;
+	stroke: purple;
+	stroke-width: 2px;
+}
+
+svg .bigCircle:hover{
+	fill: pink;
+}
+
+svg .smallCircle{
+	fill: green;
+}
+svg .smallCircle:hover{
+	fill: blue;
+}

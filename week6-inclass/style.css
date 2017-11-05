@@ -1,0 +1,13 @@
+.the-svg{
+  background-color: magenta;
+  margin: 10px auto;
+  display: block;
+}
+.main{
+  fill: pink;
+  stroke: purple;
+  stroke-width: 8px;
+}
+.smile{
+  fill: magenta;
+}
