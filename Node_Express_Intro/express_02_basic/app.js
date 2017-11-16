@@ -15,6 +15,7 @@ app.set('view engine', 'html');
 app.set('view engine', 'ejs');
 */
 
+
 //ROUTES
 app.get("/", function(request, response){
 	response.render('index');//referencing the index.html file
@@ -36,7 +37,7 @@ app.get("/:term", function(request, response) {
 });
 
 app.get("/api/search", function(request, response) {
-	var currentTerm = request.query.term;
+	var currentTerm = request.query.term;//is there a query param called term "/term=Megan"
 	var searchWord = {term: currentTerm};
 	response.json(searchWord);
 });
