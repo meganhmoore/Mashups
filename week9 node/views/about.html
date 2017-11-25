@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width">
+		<title>Project 2</title>
+		<link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Questrial">
+		<link rel="stylesheet" type="text/css" href="style.css" />
+	</head>
+	<body>
+
+		<!--<div class="msg" id="spaceNum">Retrieving space data...</div>-->
+		<div class="title"> About </div>
+		<div class="about">
+      <p>This project focused on using D3 to visualize data in a participatory way so that users can
+         better understand national and international statistics.</p>
+      <p>Using data from the Global Nutrition Report which aggregates data from multiple organizations including
+        the World Health Organization and the United Nations, I chose a few topics to visualize in this
+        first iteration of interactie data visualizing. I chose this dataset because there are more than
+        one hundred data points for every country that cover poverty, education, national spending,
+        gender inequality,and health. It is an immense amount of data that is hard to comprehend
+        merely by reading it, but because the data for all countries is in one place using the
+        same metrics, this provides an excellent dataset for comparisons between countries. Additionally
+        with D3 the ability to visualize an encyclopedic amount of data in a comprehensive and comprehendable
+        image is very quick.
+        In order to make it more interactive and participatory I wanted the user
+        to scroll over the countries of interest and see the data bound to the country visualization for
+        spatial navigation and so that they could see the differences between all countries in one picture.
+        Once I had created the intitial color gradient visualizations with bound data I wanted to create
+        more interactive components. Additionally, I was interested in depicting the national spending data for the
+        health, education, agriculture and social protection sectors but this was not a good candidate for a
+        gradient graph. In order to show the data in a more comprehensive way I created a clicking component
+        so that the user can choose their countries of interest and see the pie chart breakdown of
+        national spending. By clicking on countries, users are able to view the pie graph of a given nation's
+        spending on education, health, agriculture, and social protection.
+      </p>
+      <p>
+        From the technical side of things, I used datamaps, which is a javascript file made for D3 that makes
+        customizeable SVG visualizations. In order to map the data from the global nutrition report to the map
+        I had to convert the Country names in the dataset to the ISO3 country codes that identify each country
+        in datamaps. Then once I figured this out I could assign a different color to each country depending
+        on the range that its values fell into (ex. high population or low gender inequality). Then once
+        I mapped the colors for population and gender inequality I added a third button that did not map
+        data by color but instead it made a pie graph depending on the country that gets clicked on. Ideally
+        I would like the pie graph to pop up on top of its country but this proved to be very difficult based
+        on the way the map is constructed. I may implement this in my final project.
+      </p>
+    </div>
+		<script type="text/javascript" src="scripts/myData.js"></script>
+		<script type="text/javascript" src="scripts/nameToISO.js"></script>
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<script src="http://d3js.org/d3.v4.min.js"></script>
+		<script src="http://d3js.org/queue.v1.min.js"></script>
+		<script src="http://d3js.org/topojson.v1.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+		<script src="http://datamaps.github.io/scripts/0.4.4/datamaps.world.min.js"></script>
+		<script src="https://d3js.org/d3-path.v1.min.js"></script>
+		<script src="https://d3js.org/d3-shape.v1.min.js"></script>
+		<script src="scripts/scripts.js"></script>
+
+		<!--<script src="scripts/lib/p5.js"></script>
+		<script src="scripts/lib/p5.dom.js"></script>
+		<script src="scripts/lib/p5.sound.js"></script>-->
+		<!--<script>
+			var map = new Datamap({element: document.getElementById('container')});
+		</script>-->
+	</body>
+</html>
