@@ -28,10 +28,10 @@ console.log('Express started on port: ' + 3000);
 /********************************
 Twitter App Info
 ********************************/
-var TWITTER_CONSUMER_KEY = 'YOUR-TWITTER-CONSUMER-KEY';
-var TWITTER_CONSUMER_SECRET = 'YOUR-TWITTER-CONSUMER-SECRET';
-var TWITTER_ACCESS_TOKEN_KEY = 'YOUR-TWITTER-ACCESS-TOKEN-KEY';
-var TWITTER_ACCESS_SECRET = 'YOUR-TWITTER-ACCESS-SECRET';
+var TWITTER_CONSUMER_KEY = 'AI9OBI9lexo7N8junAck6E3so';
+var TWITTER_CONSUMER_SECRET = '	3IoP6o52o0gTpsGRv2c6M4lwS9bghOmP4qE6t4q55siEZR4Blc';
+var TWITTER_ACCESS_TOKEN_KEY = '822458350906421250-CjPYEbuEo6UcgD8UX83RdTbWH4X3X1H';
+var TWITTER_ACCESS_SECRET = 'gB00hN28cWvWO9xgIYvL5Dwt8PhWY8zzP81be2g1nW987';
 
 var client = new Twitter({
 	consumer_key: TWITTER_CONSUMER_KEY,
@@ -42,7 +42,7 @@ var client = new Twitter({
 
 //For this example, hard code a user's twitter handle
 var params = {
-	screen_name: 'craigprotzel'
+	screen_name: 'NPR'
 };
 
 //ROUTES

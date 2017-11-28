@@ -38,15 +38,15 @@ app.use(session({secret: 'sessionSecret', cookie: { maxAge: 100000 }, resave: tr
 app.use(passport.initialize());
 app.use(passport.session());
 
-var TWITTER_CONSUMER_KEY = 'YOUR-CONSUMER-KEY-GOES-HERE';
-var TWITTER_CONSUMER_SECRET = 'YOUR-CONSUMER-SECRET-GOES-HERE';
+var TWITTER_CONSUMER_KEY = 'AI9OBI9lexo7N8junAck6E3so';
+var TWITTER_CONSUMER_SECRET = '3IoP6o52o0gTpsGRv2c6M4lwS9bghOmP4qE6t4q55siEZR4Blc';
 
 //Save oAuthData in an object
 var oAuthData = {
 	consumer_key: TWITTER_CONSUMER_KEY,
 	consumer_secret: TWITTER_CONSUMER_SECRET,
 	access_token_key: '',
-	access_token_secret: ''	
+	access_token_secret: ''
 };
 //Initialize client var to use the Twitter lib
 var client;
@@ -110,7 +110,7 @@ app.get("/success", checkAuthentication, function(req, res){
 
 	//Create the client object to use the twitter package
 	if (!client){
-		client = new Twitter(oAuthData);		
+		client = new Twitter(oAuthData);
 	}
 
 	//Set request parameters
