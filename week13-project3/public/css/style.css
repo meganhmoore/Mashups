@@ -1,0 +1,22 @@
+html,body{
+	margin: 0;
+	padding: 0;
+	color: black;
+	font-size: 40px;
+}
+h1{
+
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	margin:0;
+	padding: 0;
+	width: 100%;
+	font-family: sans-serif;
+	text-align: center;
+}
+
+input{
+	box-sizing: border-box;
+	border: 2px solid black;
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Where's ___o</title>
+		<meta name="viewport" content="width=device-width initial-scale=1.0, user-scalable=yes">
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+		<div id="container">
+			<h1 class="main">Where's <span class="element"></span>o
+				<br><input type="text" value="Name">
+				<button id="findButton">Click Here to Find</button>
+			</h1>
+		</div>
+
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="js/p5/p5.js"></script>
+		<script src="js/p5/p5.dom.js"></script>
+		<script type="text/javascript" src="js/ityped.js"></script>
+		<script type="text/javascript">
+			window.ityped.init(document.querySelector('.element'),{
+				strings : ['Wald', 'Megan', 'Bon', 'John', 'Craig'],
+				loop: true,
+				typeSpeed: 300,
+				showCursor: false
+			})
+		</script>
+		<script src="js/main.js"></script>
+	</body>
+</html>
