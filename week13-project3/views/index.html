@@ -9,15 +9,19 @@
 	<body>
 		<div id="container">
 			<h1 class="main">Where's <span class="element"></span>o
-				<br><input type="text" value="Name">
-				<button id="findButton">Click Here to Find</button>
+				<br>
+				<div id="nameInput">Name:<input type="text" id="name">
+					<button id="findButton">Click Here to Find</button>
+				</div>
 			</h1>
 		</div>
-
+		<script>
+			var page = '<%=page%>';
+		</script>
 		<script src="js/jquery-1.11.1.min.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
-		<script src="js/p5/p5.js"></script>
-		<script src="js/p5/p5.dom.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore.js"></script>
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 		<script type="text/javascript" src="js/ityped.js"></script>
 		<script type="text/javascript">
 			window.ityped.init(document.querySelector('.element'),{

@@ -1,11 +1,11 @@
 html,body{
-	margin: 0;
-	padding: 0;
+	margin: 20;
+	padding: 20;
 	color: black;
 	font-size: 40px;
+	text-align: center;
 }
 h1{
-
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
@@ -19,4 +19,12 @@ h1{
 input{
 	box-sizing: border-box;
 	border: 2px solid black;
+}
+
+.span{
+	text-align: center;
+}
+
+#nameInput{
+	font-size: 12px;
 }
