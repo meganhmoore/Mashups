@@ -75,8 +75,9 @@ function playTrivia(data, count, i){
 	$("#container").append(trueButton);
 	$("#container").append(falseButton);
 	var question = data.results[i];
-	console.log("The question is" + data.results[i].question);
-	var htmlString = "<div>" + question.question+ "</div";
+	console.log("The array is ");
+	console.log(question);
+	var htmlString = "<div>" + question+ "</div>";
 	$("#container").append(htmlString);
 
 	$("#trueButton").click(function(){

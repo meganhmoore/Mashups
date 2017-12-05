@@ -19,9 +19,9 @@ app.use(express.static(__dirname + '/public'));
 // Enable json body parsing of application/json
 app.use(bodyParser.json());
 
-var port = 8000;
+var port = process.env.PORT || 8000;
 // Start the server & save it to a var
-var server = app.listen(8000);
+var server = app.listen(port);
 //Pass the server var as an arg to the 'io' init requirement
 var io = require('socket.io')(server);
 console.log('Express started on port ' + port);
