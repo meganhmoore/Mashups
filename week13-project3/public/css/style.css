@@ -1,9 +1,12 @@
 html,body{
-	margin: 20;
+	font-family: 'Nunito Sans', sans-serif;
+	margin:10;
 	padding: 20;
 	color: black;
 	font-size: 40px;
 	text-align: center;
+	color: white;
+	background-color: rgb(180,0,0);
 }
 h1{
 	position: absolute;
@@ -12,19 +15,55 @@ h1{
 	margin:0;
 	padding: 0;
 	width: 100%;
-	font-family: sans-serif;
 	text-align: center;
 }
 
 input{
-	box-sizing: border-box;
-	border: 2px solid black;
+	/*box-sizing: border-box;
+	border: 2px solid black;*/
+	width: 20%;
+	border: none;
+	background-color: rgb(180,0,0);
+	border-bottom: 2px solid white;
+	color: white;
+	font-size: 26px;
+	text-align: center;
 }
 
 .span{
 	text-align: center;
 }
 
-#nameInput{
-	font-size: 12px;
+.button{
+	border: 2px solid white;
+	background-color: rgb(180,0,0);
+	padding: 15px;
+	margin-left: 10px;
+	margin-right: 10px;
+	text-decoration: none;
+	font-size: 16px;
+	color:white;
+}
+.over{
+	font-size: 48px;
+	margin: 20px;
+	padding: 20px;
+}
+.about{
+	margin:20px;
+	text-align: left;
+	font-size: 16px;
+}
+
+
+#container{
+	cursor: default;
+}
+
+#highScores{
+	align-items:baseline;
+}
+#waldo{
+	background: transparent;
+	border: none !important;
 }

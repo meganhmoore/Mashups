@@ -1,21 +1,95 @@
+var scoreString;
+var images = ["media/7.jpg", "media/8.jpg", "media/13.jpg","media/14.jpg", "media/15.jpg"];
+var coords = {0:['450px', '570px'], 1:['450px', '100px'], 2:['800px','200px'], 3:['110px','470px'], 4:['175px','300px']};
+var imageIndex;
+var dbData;
+var userName;
+var count;
 
-/**var name = document.getElementById('name');
-name.addEventListener('click', function firstLevel(){
-	console.log("clicked");//log user info in the database
-  $('#container').html('');
-	levelOne("wald");
-})**/
 
-function levelOne(name, count){
-	name=name+"o";
+/*---------------------------------------------
+level-by-level code
+----------------------------------------------*/
+function about(){
 	$('#container').html('');
-	$('#container').append("Find "+name);
+	var data = '<h2> About </h2>';
+	data+='<p class="about">For my final project I chose to create a game experience with ';
+	data+='inspiration from the game of Wheres Waldo. For the first part of the game, I ask the user to input their name, and "waldo-ify" their name by adding "o" to the end of their name. Then for the first puzzle they must find their "waldo-ified" name in a sea of "waldo"s. Once they have found their name or time has run out, they must go through a series of other games. Flipping between wheres Waldo';
+	data+=' discovery games and trivia questions, the user must gather points and try to';
+	data+='reach the maximum score or to make it to the high score board. After completing all of the games, the user may either view their standing on the high score board, or they may start over and try the game again. </p> <p class="about"> From the technical side, this project used node packages, a cloudant database and a trivia API. The cloudant database was used to store user data so that users that repeated would not be stored twice, and so that they could try and beat their own personal record. The';
+	data+=' database also stored the final score for the user so that the top ten scores could be found and displayed as a high scores table.The trivia API was used to query true or false questions for the user to answer in between solving waldo puzzles. Additionally I used a javascript package called ityped to be able to display the typing animation on the opening screen.</p><p class="about">For future add-ons to this project it would be fun to use unique profile ';
+	data+='pictures for each user so that the pictures can be';
+	data+=' overlaid on top of the Waldo puzzle and so that they can find themselves in the picture.</p>';
+	$('#container').append(data);
+	
+}
+
+function showHighScores(){
+	$('#container').html('');
+	$('#score').html('');
+	$('#scores').html('');
+	$('#container').append("Top Scores: ");
+
+	saveScores();
+
+	getAllData();
+	console.log("Getting Top Values");
+	var topScorers = ["None","None","None","None","None","None","None","None","None","None"];
+	var highScores = [0,0,0,0,0,0,0,0,0,0];
+	for(key in dbData){
+		var val = dbData[key].doc.count;
+		val = parseInt(val);
+		var user = dbData[key].doc.user;
+
+
+		var i=0;
+		while(i < 10){
+			if(val > highScores[i]){
+				var j = i;
+				temp = highScores[i];
+				tempUser = topScorers[i];
+				highScores[i] = val;
+				topScorers[i] = user;
+				while(j<9){
+					newTemp = highScores[j+1];
+					newUser = topScorers[j+1];
+					highScores[j+1]= temp;
+					topScorers[j+1] = tempUser;
+					temp = newTemp;
+					tempUser = newUser;
+					j++;
+				}
+				break;
+			}
+
+			i++;
+		}
+
+	}
+	var htmlString ='';
+	for(var i=0; i<10; i++){
+		htmlString+= '<li>'+topScorers[i]+": "+highScores[i]+'</li>';
+	}
+	$('#container').append(htmlString);
+	var restart = "<a class='button' href='https://find-waldo.herokuapp.com'>Restart</a>";
+	$('#container').append(restart);
+}
+
+
+function levelOne(){
+	userName=userName+"o";
+	$('#container').html('');
+	$('#container').append("Find "+userName);
 	var compName = "waldo";
 	var tempName = compName;
-	if(name == "waldo"){
+
+	//in case the users name is waldo
+	if(userName == "waldo"){
 		console.log("same");
 		compName = "bobo"
 	}
+
+	//making the board of words
 	var rand = Math.floor(Math.random() * 100);
 	console.log(rand);
 	var i = 0;
@@ -25,7 +99,7 @@ function levelOne(name, count){
 			$("#container").append("<br>");
 		}
 		if(i == rand){
-			tempName = name;
+			tempName = userName;
 		}
 		else{
 			tempName = compName;
@@ -36,19 +110,33 @@ function levelOne(name, count){
 	     .appendTo("#container");
 	  i++;
 	}
+	var t=15;
+	var time = setInterval(function(){
+		$('#score').html('');
+		scoreString = "Score: " + count;
+		$('#score').append(scoreString);
+		if(t==0){
+			levelTwo(0);
+		}
+		t--;
+	},1000);
+
 	//add a time to change score
 	var findID = "#"+"num"+rand;
 	console.log(findID);
 	$(findID).click(function(){
-		levelTwo(name, count, 0);
+		clearInterval(time);
+		count=count+t;
+		console.log("Score"+count);
+		findWaldo(imageIndex, 0, 0);
+
 	})
 }
 
-function levelTwo(name, count){
-	console.log(name);
+function levelTwo(){
 	$('#container').html('');
-
-	var apiURL= "https://opentdb.com/api.php?amount=10&category=9&difficulty=medium";
+	$('#score').html('');
+	var apiURL= "https://opentdb.com/api.php?amount=10&category=9&difficulty=medium&type=boolean";
 	$.ajax({
 		url:apiURL,
 		type:'GET',
@@ -61,41 +149,106 @@ function levelTwo(name, count){
 		success: function(data){
 			console.log("noice");
 			console.log(data);
-			playTrivia(data, count);
+			playTrivia(data,0);
 		}
 	})
 }
 
 //runs the trivia game
-function playTrivia(data, count, i){
-	console.log("DATA"+data);
-	console.log("QUESTIONS"+data.results);
-	var trueButton = "<button>" + "True" + "</button>";
-	var falseButton = "<button>" + "False" + "</button>";
+function playTrivia(data, i){
+	console.log("question number"+i);
+	//screen set up
+	$('#container').html('');
+	$('#score').html('');
+	scoreString = "Score: " + count;
+	$('#score').append(scoreString);
+	var trueButton = "<button id='trueButton' class='button'>" + "True" + "</button>";
+	var falseButton = "<button id='falseButton' class='button'>" + "False" + "</button>";
 	$("#container").append(trueButton);
 	$("#container").append(falseButton);
 	var question = data.results[i];
-	console.log("The array is ");
-	console.log(question);
-	var htmlString = "<div>" + question+ "</div>";
+	var htmlString = "<div>" + question.question+ "</div>";
+	var gameOver = '<br><div class="over">Game Over, Great Job!</div>';
 	$("#container").append(htmlString);
 
 	$("#trueButton").click(function(){
-		console.log("you answered true");
+		if(question.correct_answer == "True"){
+			count++;
+		}
 		i++;
+		if(i<4){
+			findWaldo(imageIndex, data, i);
+		}
+		else{
+			$('#container').html('');
+			$("#container").append(gameOver);
+		}
 	})
 	$("#falseButton").click(function(){
-		console.log("You answered false");
+		if(question.correct_answer == "False"){
+			count++;
+		}
 		i++;
+		if(i<4){
+			findWaldo(imageIndex, data, i);
+		}
+		else{
+			$('#container').html('');
+			$("#container").append(gameOver);
+		}
 	})
-	if(i<10){
-		playTrivia(data, count, i);
-	}
+}
+
+
+function findWaldo(imageNum, data, i){
+
+	//setting up screen
+	$('#container').html('');
+	$('#score').html('');
+	scoreString = "Score: " + count;
+	$('#score').append(scoreString);
+	var img = document.createElement("img");
+	var div = document.createElement("div");
+	div.style.position = 'relative';
+	img.src = images[imageNum];
+	img.style.width='1200px';
+	var findButton = document.createElement("button");
+	findButton.id = 'waldo';
+	findButton.style.width = '100px';
+	findButton.style.height = '100px';
+	findButton.style.position = 'absolute';
+	console.log(coords[0]);
+	var temp = coords[imageNum];
+	findButton.style.left = temp[0];
+	findButton.style.top = temp[1];
+	div.append(findButton);
+	div.append(img);
+	container.append(div);
+
+
+	imageIndex++;
+
+	$('#waldo').click(function(){
+		console.log("Found Waldo");
+		count++;
+		if(imageNum == 0){
+			levelOne();
+		}
+		else if (imageNum == 1){
+			levelTwo();
+		}
+		else if(imageNum > 1){
+			playTrivia(data, i);
+		}
+		else{
+			console.log("PROBLME");
+		}
+	})
 }
 
 
 //Class for my data objects
-function UserCount(dataObj){
+function Users(dataObj){
 
 	//Set the db object as the
 	this.dataObj = dataObj;
@@ -117,9 +270,6 @@ function UserCount(dataObj){
 			if (theID == curObj.dataObj._rev){
 				sendUpdateRequest(curObj.dataObj);
 			}
-			/**else if (theID == curObj.dataObj._id){
-				sendDeleteRequest(curObj.dataObj);
-			}**/
 		});
 	};
 }
@@ -136,20 +286,10 @@ function getWord(term){
 		success: function(data){
 			console.log("WooHoo!");
 			console.log(data);
-			name = data;
-			//$('#dataContainer').html('');
+			userName = data;
 			var wordData = data.map(function(d){
 				return d.doc;
 			});
-			/**var str = '';
-			if (wordData.length === 1){
-				str = " time";
-			}
-			else{
-				str = " times";
-			}
-			$('#dataContainer').append('<h2>The word "' + term + '" has been favorited ' + wordData.length + str + '!</h2>');
-			**/
 		}
 	});
 }
@@ -166,72 +306,51 @@ function getAllData(){
 		success: function(data){
 			console.log("We have data");
 			console.log(data);
-			//You could do this on the server
-			var dbData = data.map(function(d){
-				return d.doc;
-			});
-			//Clear out current data on the page if any
-			//$('#dataContainer').html('<ul id="theDataList">');
+			dbData = data;
+			return data;
 
-			//Create UserCount objects
-			dbData.forEach(function(d){
-				var tempObj = new UserCount(d);
-				tempObj.createDomElement();
-			});
+
 		}
 	});
 }
 
-/**function sendDeleteRequest(obj){
-	console.log(obj);
-	//Make sure you want to delete
-	var conf = confirm("Are you sure you want to delete '" + obj.user + " : " + obj.word + "' ?");
-	if (!conf) return;
-	//Proceed if confirm is true
-	$('#dataContainer').html('<div id="loading">Data is being deleted...</div>');
-	$.ajax({
-		url: '/delete',
-		type: 'POST',
-		contentType: 'application/json',
-		data: JSON.stringify(obj),
-		error: function(resp){
-			console.log("Oh no...");
-			console.log(resp);
-		},
-		success: function(resp){
-			console.log('Deleted!');
-			console.log(resp);
-			getAllData();
-		}
-	});
-}**/
 
-function sendUpdateRequest(obj){
-	//Change a value
-	var promptVal = prompt('Enter a new word to replace "' + obj.word + '":');
-	if (!promptVal) return;
-	obj.word = promptVal;
-
-	//$('#dataContainer').html('<div id="loading">Data is being updated...</div>');
-	console.log(obj);
-	$.ajax({
-		url: '/update',
-		type: 'POST',
-		contentType: 'application/json',
-		data: JSON.stringify(obj),
-		error: function(resp){
-			console.log("Oh no...");
-			console.log(resp);
-		},
-		success: function(resp){
-			console.log('Updated!');
-			console.log(resp);
-			getAllData();
+//function sendUpdateRequest(){
+function saveScores(){
+	console.log("Score" + count);
+	for(key in dbData){
+		console.log(dbData[key]);
+		var temp = dbData[key];
+		console.log("temp" + temp.doc.user);
+		var tempName = temp.doc.user;
+		tempName +="o";
+		console.log("Stringified: "+ tempName +"vs."+userName);
+		if(tempName == userName){
+			if(temp.doc.count < count){
+				console.log("Need to update count");
+				temp.doc.count = count;
+				$.ajax({
+					url:'/update',
+					type:'POST',
+					contentType: 'application/json',
+					data: JSON.stringify(temp.doc),
+					error: function(error){
+						console.log("Error updating score");
+						console.log(error);
+					},
+					success: function(data){
+						console.log("Updated properly!");
+						showHighScores();
+					}
+				});
+			}
 		}
-	});
+	}
+
 }
 
-function saveData(obj){
+ function addUser(obj){
+	console.log("USER"+userName);
 	$.ajax({
 		url: '/save',
 		type: 'POST',
@@ -249,47 +368,58 @@ function saveData(obj){
 	});
 }
 
+
 $(document).ready(function(){
 
+
 	if (page === 'get all data'){
-		console.log("got data");
-		//$('#container').show();
 		getAllData();
 	}
 	else{
 		$('#container').hide();
-		console.log("getting data on the word");
 		getWord(page);
 	}
 
 	$('#findButton').click(function(){
-		var count = 0;
-		//$("#userName").val() || 'ME';
-		var userName = $("#name").val().toLowerCase() || 'test';
+		count = 0;
+		userName = $("#name").val() || 'test';
 		var timeStamp = new Date();
+
 		//Create data object to be saved
 		var data = {
 			user: userName,
 			count: count,
 			date: timeStamp
 		};
-		console.log(data);
-		saveData(data);
-		//Clear out the form fields
-		//$("#userName").val('');
+
+		//adding the new user only if they have not already played before
+		var alreadyPresent = false;
+		for(key in dbData){
+			var tempUser = dbData[key].doc.user;
+			if(tempUser == userName){
+				alreadyPresent = true;
+			}
+		}
+		if(alreadyPresent == false){
+			console.log("adding new user" + userName);
+			addUser(data);
+		}
+		else{
+			console.log("user already present"+userName);
+		}
 		$("#name").val('');
-		levelOne(userName, count);
+		imageIndex = 0;
+		findWaldo(imageIndex, 0, 0);
 	});
-});
 
+	$('#highScores').click(function(){
+		console.log("High Score button clicked");
+		showHighScores();
+	});
 
-
-//----------CLIENT-SIDE SOCKET CODE----------//
-//Init socket object
-var socket = io();
-
-//Receive data from the server using .on()
-socket.on('news', function (data) {
-	console.log(data);
-	//drawData(data);
+	$('#aboutButton').click(function(){
+		console.log("About clicked");
+		about();
+	});
+	$
 });
