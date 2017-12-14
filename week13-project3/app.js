@@ -29,10 +29,10 @@ console.log('Express started on port ' + port);
 /*---------------
 //DATABASE CONFIG
 ----------------*/
-var cloudant_USER = '67b7ae82-bb2c-4e3b-ab02-2a54cf6f0106-bluemix';
-var cloudant_DB = 'waldo';
-var cloudant_KEY = 'rchedshicaredleastarestw';
-var cloudant_PASSWORD = 'd14d21d00837b41a578342014392fb6ed5fd4665';
+var cloudant_USER = 'USER';
+var cloudant_DB = 'DATABASE NAME';
+var cloudant_KEY = 'KEY';
+var cloudant_PASSWORD = 'PASSWORD';
 
 var cloudant_URL = "https://" + cloudant_USER + ".cloudant.com/" + cloudant_DB;
 
