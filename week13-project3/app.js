@@ -54,10 +54,8 @@ app.get("/", function(req, res){
 	res.render('index', {page: 'get all data'});
 });
 
-//may not need this route but this shows a single word
-// (may be useful for showing high scores)
-app.get("/:count", function(req, res){
-	var currentCount = req.params.count;
+app.get("/:user", function(req, res){
+	var currentCount = req.params.user;
 	res.render('index', {page: currentCount});
 });
 
@@ -90,32 +88,6 @@ app.post("/save", function(req,res){
 	});
 });
 
-//UPDATE an object in the database
-app.post('/update', function(req,res){
-	console.log("Updating an object");
-	var theObj = req.body;
-	//Send the data to the db
-	Request.post({
-		url: cloudant_URL,
-		auth: {
-			user: cloudant_KEY,
-			pass: cloudant_PASSWORD
-		},
-		json: true,
-		body: theObj
-	},
-	function (error, response, body){
-		if (response.statusCode == 201){
-			console.log("Updated!");
-			res.json(body);
-		}
-		else{
-			console.log("Uh oh...");
-			console.log("Error: " + res.statusCode);
-			res.send("Something went wrong...");
-		}
-	});
-});
 
 //JSON Serving route- to serve users and high scores
 app.get("/api/all", function(req,res){
@@ -137,38 +109,8 @@ app.get("/api/all", function(req,res){
 });
 
 //JSON Serving route to serve single user data
-app.get("/api/name/:count", function(req, res){
-	var currentCount = req.params.count;
-	console.log('Making a db request for: ' + currentCount);
-	//Use the Request lib to GET the data in the CouchDB on Cloudant
-	Request.get({
-		url: cloudant_URL+"/_all_docs?include_docs=true",
-		auth: {
-			user: cloudant_KEY,
-			pass: cloudant_PASSWORD
-		},
-		json: true
-	},
-	function (error, response, body){
-		var theRows = body.rows;
-		//Filter the results to match the current word
-		var filteredRows = theRows.filter(function (d) {
-			return d.doc.count == currentCount;
-		});
-		res.json(filteredRows);
-	});
-});
 
 //Catch All Route
 app.get("*", function(req, res){
-	res.send('Sorry, nothing doing here.');
-});
-
-//Main Socket Connection
-io.on('connection', function (socket) {
- //console.log('a user connected');
-	socket.on('drawing', function (data) {
-		socket.broadcast.emit('news', data);
-		//console.log(data);
-  });
+	res.send('Sorry, nothing happening here.');
 });

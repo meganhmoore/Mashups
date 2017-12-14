@@ -21,7 +21,7 @@ function about(){
 	data+='pictures for each user so that the pictures can be';
 	data+=' overlaid on top of the Waldo puzzle and so that they can find themselves in the picture.</p>';
 	$('#container').append(data);
-	
+
 }
 
 function showHighScores(){
@@ -33,7 +33,6 @@ function showHighScores(){
 	saveScores();
 
 	getAllData();
-	console.log("Getting Top Values");
 	var topScorers = ["None","None","None","None","None","None","None","None","None","None"];
 	var highScores = [0,0,0,0,0,0,0,0,0,0];
 	for(key in dbData){
@@ -85,13 +84,11 @@ function levelOne(){
 
 	//in case the users name is waldo
 	if(userName == "waldo"){
-		console.log("same");
 		compName = "bobo"
 	}
 
 	//making the board of words
 	var rand = Math.floor(Math.random() * 100);
-	console.log(rand);
 	var i = 0;
 	while(i<100){
 		var randFont= Math.floor((Math.random() * 20) + 20)+"px";
@@ -123,11 +120,9 @@ function levelOne(){
 
 	//add a time to change score
 	var findID = "#"+"num"+rand;
-	console.log(findID);
 	$(findID).click(function(){
 		clearInterval(time);
 		count=count+t;
-		console.log("Score"+count);
 		findWaldo(imageIndex, 0, 0);
 
 	})
@@ -142,13 +137,9 @@ function levelTwo(){
 		type:'GET',
 		datatype:'jsonp',
 		error: function(err){
-			console.log("Problem");
-			console.log(err);
 			$("container").append("There was an error");
 		},
 		success: function(data){
-			console.log("noice");
-			console.log(data);
 			playTrivia(data,0);
 		}
 	})
@@ -156,7 +147,6 @@ function levelTwo(){
 
 //runs the trivia game
 function playTrivia(data, i){
-	console.log("question number"+i);
 	//screen set up
 	$('#container').html('');
 	$('#score').html('');
@@ -217,7 +207,6 @@ function findWaldo(imageNum, data, i){
 	findButton.style.width = '100px';
 	findButton.style.height = '100px';
 	findButton.style.position = 'absolute';
-	console.log(coords[0]);
 	var temp = coords[imageNum];
 	findButton.style.left = temp[0];
 	findButton.style.top = temp[1];
@@ -229,7 +218,6 @@ function findWaldo(imageNum, data, i){
 	imageIndex++;
 
 	$('#waldo').click(function(){
-		console.log("Found Waldo");
 		count++;
 		if(imageNum == 0){
 			levelOne();
@@ -241,7 +229,7 @@ function findWaldo(imageNum, data, i){
 			playTrivia(data, i);
 		}
 		else{
-			console.log("PROBLME");
+			console.log("PROBLEM");
 		}
 	})
 }
@@ -280,12 +268,9 @@ function getWord(term){
 		type: 'GET',
 		dataType: 'json',
 		error: function(data){
-			console.log(data);
 			alert("Oh No! Try a refresh?");
 		},
 		success: function(data){
-			console.log("WooHoo!");
-			console.log(data);
 			userName = data;
 			var wordData = data.map(function(d){
 				return d.doc;
@@ -300,12 +285,9 @@ function getAllData(){
 		type: 'GET',
 		dataType: 'json',
 		error: function(data){
-			console.log(data);
 			alert("Oh No! Try a refresh?");
 		},
 		success: function(data){
-			console.log("We have data");
-			console.log(data);
 			dbData = data;
 			return data;
 
@@ -317,17 +299,12 @@ function getAllData(){
 
 //function sendUpdateRequest(){
 function saveScores(){
-	console.log("Score" + count);
 	for(key in dbData){
-		console.log(dbData[key]);
 		var temp = dbData[key];
-		console.log("temp" + temp.doc.user);
 		var tempName = temp.doc.user;
 		tempName +="o";
-		console.log("Stringified: "+ tempName +"vs."+userName);
 		if(tempName == userName){
 			if(temp.doc.count < count){
-				console.log("Need to update count");
 				temp.doc.count = count;
 				$.ajax({
 					url:'/update',
@@ -335,11 +312,9 @@ function saveScores(){
 					contentType: 'application/json',
 					data: JSON.stringify(temp.doc),
 					error: function(error){
-						console.log("Error updating score");
 						console.log(error);
 					},
 					success: function(data){
-						console.log("Updated properly!");
 						showHighScores();
 					}
 				});
@@ -350,19 +325,14 @@ function saveScores(){
 }
 
  function addUser(obj){
-	console.log("USER"+userName);
 	$.ajax({
 		url: '/save',
 		type: 'POST',
 		contentType: 'application/json',
 		data: JSON.stringify(obj),
 		error: function(resp){
-			console.log("Oh no...");
-			console.log(resp);
 		},
 		success: function(resp){
-			console.log('WooHoo!');
-			console.log(resp);
 			getAllData();
 		}
 	});
@@ -401,11 +371,7 @@ $(document).ready(function(){
 			}
 		}
 		if(alreadyPresent == false){
-			console.log("adding new user" + userName);
 			addUser(data);
-		}
-		else{
-			console.log("user already present"+userName);
 		}
 		$("#name").val('');
 		imageIndex = 0;
@@ -413,12 +379,10 @@ $(document).ready(function(){
 	});
 
 	$('#highScores').click(function(){
-		console.log("High Score button clicked");
 		showHighScores();
 	});
 
 	$('#aboutButton').click(function(){
-		console.log("About clicked");
 		about();
 	});
 	$
